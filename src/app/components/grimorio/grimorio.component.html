@@ -1,0 +1,65 @@
+<div class="pagina">
+  <div class="flex-entre mb-16">
+    <h2>O Grimório</h2>
+    <p class="texto-suave">Registro de todas as fórmulas descobertas</p>
+  </div>
+
+  <div class="ornamento">Fórmulas Catalogadas</div>
+
+  <div *ngIf="mensagem" class="aviso-mensagem">{{ mensagem }}</div>
+
+  <div *ngIf="carregando" class="texto-suave" style="text-align:center; padding:32px;">
+    Consultando os registros...
+  </div>
+
+  <div *ngIf="!carregando && pocoes.length === 0" class="vazio">
+    <p>Nenhuma fórmula foi registrada ainda.</p>
+    <p class="texto-suave">Dirija-se ao Atanor para realizar sua primeira combinação.</p>
+  </div>
+
+  <table class="tabela-manuscrito" *ngIf="!carregando && pocoes.length > 0">
+    <thead>
+      <tr>
+        <th>Denominação</th>
+        <th>Potência</th>
+        <th>Estabilidade</th>
+        <th>Perigo</th>
+        <th>Efeito Dominante</th>
+        <th>Registrada em</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of pocoes">
+        <td>
+          <a [routerLink]="['/pergaminho', p.id]" class="link-pocao">{{ p.nome }}</a>
+        </td>
+        <td class="texto-ouro">{{ p.potenciaTotal }}</td>
+        <td>
+          <span class="selo"
+            [class.selo-estavel]="p.estabilidade === 'Estável'"
+            [class.selo-instavel]="p.estabilidade === 'Instável'">
+            {{ p.estabilidade }}
+          </span>
+        </td>
+        <td>
+          <span class="selo" [class]="classePerigo(p.nivelPerigo ?? '')">
+            {{ p.nivelPerigo }}
+          </span>
+        </td>
+        <td>{{ p.efeitoDominante ?? '—' }}</td>
+        <td class="texto-suave" style="font-size:0.85rem;">{{ p.dataCriacao }}</td>
+        <td>
+          <button class="btn btn-perigo" style="font-size:0.7rem; padding:4px 10px;" (click)="deletar(p)">
+            Remover
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="rodape-grimorio" *ngIf="pocoes.length > 0">
+    <span class="texto-suave">{{ pocoes.length }} fórmula(s) catalogada(s)</span>
+    <button class="btn btn-secundario" (click)="carregar()">Atualizar Registros</button>
+  </div>
+</div>

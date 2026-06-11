@@ -1,0 +1,98 @@
+<div class="pagina">
+  <div class="flex-entre mb-16">
+    <a routerLink="/grimorio" class="btn btn-secundario" style="font-size:0.75rem;">
+      Voltar ao Grimório
+    </a>
+  </div>
+
+  <div *ngIf="carregando" class="texto-suave" style="text-align:center; padding:48px;">
+    Desdobrando o pergaminho...
+  </div>
+
+  <div *ngIf="!carregando && pocao">
+
+    <!-- Cabeçalho da poção -->
+    <div class="cabecalho-pocao">
+      <h1>{{ pocao.nome }}</h1>
+      <div class="cabecalho-meta">
+        <div class="meta-item">
+          <span class="meta-label">Potência Total</span>
+          <span class="meta-valor texto-ouro">{{ pocao.potenciaTotal }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Estabilidade</span>
+          <span class="selo"
+            [class.selo-estavel]="pocao.estabilidade === 'Estável'"
+            [class.selo-instavel]="pocao.estabilidade === 'Instável'">
+            {{ pocao.estabilidade }}
+          </span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Alquimista</span>
+          <span class="meta-valor">{{ pocao.alquimista ?? '—' }}</span>
+        </div>
+        <div class="meta-item">
+          <span class="meta-label">Data do Registro</span>
+          <span class="meta-valor">{{ pocao.dataCriacao }}</span>
+        </div>
+      </div>
+      <div class="meta-hash texto-suave">Rubrica: {{ pocao.hashIngredientes }}</div>
+    </div>
+
+    <div class="grid-2 mt-24" style="gap:32px; align-items:start;">
+
+      <!-- Ingredientes -->
+      <div>
+        <div class="ornamento">Materia Prima Utilizada</div>
+        <table class="tabela-manuscrito">
+          <thead>
+            <tr>
+              <th>Ingrediente</th>
+              <th>Elemento</th>
+              <th>Raridade</th>
+              <th>Pot.</th>
+              <th>Pot. Real</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let ing of pocao.ingredientes">
+              <td>{{ ing.nome }}</td>
+              <td>
+                <span class="simbolo-elemento">{{ ing.elemento?.simbolo }}</span>
+                {{ ing.elemento?.nome }}
+              </td>
+              <td>{{ ing.raridade?.nome }}</td>
+              <td>{{ ing.potencia }}</td>
+              <td class="texto-ouro">{{ ing.potenciaReal }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Efeitos -->
+      <div>
+        <div class="ornamento">Efeitos Resultantes</div>
+        <div class="efeito-card" *ngFor="let ef of pocao.efeitos"
+             [class.efeito-dominante]="ef.ehDominante">
+          <div class="efeito-cabecalho">
+            <span class="efeito-nome">{{ ef.nome }}</span>
+            <span class="selo" [class.selo-dominante]="ef.ehDominante" [class.selo-secundario]="!ef.ehDominante">
+              {{ ef.tipoEfeito }}
+            </span>
+          </div>
+          <div class="efeito-corpo">
+            <span class="texto-suave" style="font-size:0.85rem;">{{ ef.descricao }}</span>
+            <div class="efeito-meta">
+              <span>Intensidade: <strong class="texto-ouro">{{ ef.intensidade }}</strong></span>
+              <span>Perigo: <strong [class]="classePerigo(ef.nivelPerigo)">{{ ef.nivelPerigo }}/5</strong></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!carregando && !pocao" class="texto-suave" style="text-align:center; padding:48px;">
+    Poção não encontrada nos registros.
+  </div>
+</div>

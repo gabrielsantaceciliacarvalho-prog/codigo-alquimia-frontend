@@ -1,0 +1,48 @@
+.cabecalho-pocao {
+  border-bottom: 1px solid var(--ouro-escuro);
+  padding-bottom: 16px;
+  margin-bottom: 8px;
+}
+.cabecalho-meta {
+  display: flex;
+  gap: 32px;
+  margin-top: 12px;
+  flex-wrap: wrap;
+}
+.meta-item { display: flex; flex-direction: column; gap: 4px; }
+.meta-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tinta-desbotada);
+}
+.meta-valor { font-size: 1rem; color: var(--tinta); }
+.meta-hash { font-size: 0.75rem; margin-top: 8px; }
+.simbolo-elemento {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  background: rgba(201,168,76,0.15);
+  border: 1px solid rgba(201,168,76,0.3);
+  padding: 1px 4px;
+  margin-right: 4px;
+}
+.efeito-card {
+  border: 1px solid var(--pergaminho-sombra);
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  background: rgba(255,255,255,0.15);
+}
+.efeito-dominante {
+  border-color: var(--ouro-escuro);
+  background: rgba(201,168,76,0.08);
+}
+.efeito-cabecalho { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.efeito-nome { font-family: 'Cinzel', serif; font-size: 0.9rem; color: var(--tinta); }
+.efeito-corpo { display: flex; flex-direction: column; gap: 6px; }
+.efeito-meta { display: flex; gap: 20px; font-size: 0.85rem; color: var(--tinta-suave); }
+.perigo-5 { color: #ff6666; }
+.perigo-4 { color: #ff9966; }
+.perigo-3 { color: #ffcc66; }
+.perigo-2 { color: #99cc66; }
+.perigo-0 { color: #66cc88; }

@@ -1,0 +1,30 @@
+.link-pocao {
+  color: var(--bordo-escuro);
+  text-decoration: none;
+  font-style: italic;
+}
+.link-pocao:hover {
+  color: var(--bordo);
+  text-decoration: underline;
+}
+.aviso-mensagem {
+  background: rgba(201,168,76,0.15);
+  border: 1px solid var(--ouro-escuro);
+  padding: 10px 16px;
+  margin-bottom: 16px;
+  font-style: italic;
+  color: var(--tinta-suave);
+}
+.vazio {
+  text-align: center;
+  padding: 48px;
+  color: var(--tinta-suave);
+}
+.rodape-grimorio {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 16px;
+  padding-top: 12px;
+  border-top: 1px solid var(--pergaminho-sombra);
+}

@@ -1,0 +1,159 @@
+<div class="pagina">
+
+  <div class="flex-entre mb-16">
+    <h2>O Atanor</h2>
+    <p class="texto-suave">O forno sagrado onde os elementos se unem</p>
+  </div>
+
+  <div class="ornamento">Selecione os Ingredientes</div>
+
+  <div class="atanor-grid">
+
+    <!-- Coluna esquerda: ingredientes disponíveis -->
+    <div class="coluna-ingredientes">
+      <h3 class="coluna-titulo">Materia Prima Disponível</h3>
+      <p class="texto-suave" style="font-size:0.85rem; margin-bottom:8px;">
+        Clique para adicionar ao caldeirão
+      </p>
+      <ul class="lista-ingredientes">
+        <li
+          *ngFor="let ing of ingredientesDisponiveis"
+          (click)="adicionar(ing)"
+          [class.selecionado]="estaSelecionado(ing)"
+          [class.bloqueado]="ingredientesSelecionados.length >= 5 && !estaSelecionado(ing)"
+        >
+          <div>
+            <span class="ing-simbolo">{{ ing.elemento.simbolo }}</span>
+            <span class="ing-nome">{{ ing.nome }}</span>
+          </div>
+          <div class="ing-meta">
+            <span [class]="'raridade-tag ' + nivelRaridadeClasse(ing.raridade.nome)">
+              {{ ing.raridade.nome }}
+            </span>
+            <span class="ing-pot">{{ ing.potencia }}pt</span>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Coluna central: caldeirão -->
+    <div class="coluna-caldeirao">
+      <div class="caldeirao-visual">
+        <div class="caldeirao-icone">&#9883;</div>
+        <div class="caldeirao-vapor" *ngIf="ingredientesSelecionados.length > 0">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <div class="contador-label">
+        {{ ingredientesSelecionados.length }} / 5 ingredientes
+      </div>
+
+      <!-- Lista do caldeirão -->
+      <div class="caldeirao-lista">
+        <div
+          class="caldeirao-item"
+          *ngFor="let ing of ingredientesSelecionados"
+          (click)="remover(ing)"
+          title="Clique para remover"
+        >
+          <span>{{ ing.nome }}</span>
+          <span class="remover-x">x</span>
+        </div>
+        <div class="caldeirao-vazio" *ngIf="ingredientesSelecionados.length === 0">
+          O caldeirão aguarda os ingredientes...
+        </div>
+      </div>
+
+      <div class="campo mt-16">
+        <label>Nome da Poção (opcional)</label>
+        <input
+          class="entrada"
+          type="text"
+          [(ngModel)]="nomePocao"
+          placeholder="Deixe em branco para nome automático"
+        />
+      </div>
+
+      <div class="flex gap-8 mt-16">
+        <button class="btn btn-secundario w-full" (click)="limpar()">
+          Esvaziar Caldeirão
+        </button>
+        <button
+          class="btn btn-primario w-full"
+          (click)="misturar()"
+          [disabled]="misturando || ingredientesSelecionados.length === 0"
+        >
+          {{ misturando ? 'Misturando...' : 'Realizar a Mistura' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Coluna direita: guia -->
+    <div class="coluna-guia">
+      <h3 class="coluna-titulo">Codex do Alquimista</h3>
+      <div class="linha-ouro"></div>
+      <div class="guia-texto">
+        <p>Selecione de um a cinco ingredientes da Materia Prima e os adicione ao Atanor.</p>
+        <br>
+        <p>Após a mistura, o sistema calculará a potência e os efeitos resultantes.</p>
+        <br>
+        <p class="texto-titulo" style="font-size:0.8rem; color:var(--bordo-escuro)">Raridades</p>
+        <div class="guia-raridades">
+          <div><span class="raridade-tag raridade-comum">Comum</span> &times;1,00</div>
+          <div><span class="raridade-tag raridade-incomum">Incomum</span> &times;1,25</div>
+          <div><span class="raridade-tag raridade-raro">Raro</span> &times;1,75</div>
+          <div><span class="raridade-tag raridade-epico">Épico</span> &times;2,50</div>
+          <div><span class="raridade-tag raridade-lendario">Lendário</span> &times;4,00</div>
+        </div>
+        <br>
+        <p class="texto-titulo" style="font-size:0.8rem; color:var(--bordo-escuro)">Estabilidade</p>
+        <p>Potência &ge; 200 resulta em poção Instável.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Resultado -->
+  <div
+    *ngIf="resultado"
+    class="resultado-box"
+    [class.sucesso]="resultado.tipo === 'SUCESSO'"
+    [class.duplicata]="resultado.tipo === 'DUPLICATA'"
+    [class.erro]="resultado.tipo === 'ERRO'"
+  >
+    <div class="ornamento">
+      {{ resultado.tipo === 'SUCESSO' ? 'Fórmula Registrada' :
+         resultado.tipo === 'DUPLICATA' ? 'Receita Conhecida' : 'A Mistura Falhou' }}
+    </div>
+
+    <p class="resultado-mensagem">{{ resultado.mensagem }}</p>
+
+    <div class="resultado-detalhes" *ngIf="resultado.pocao">
+      <div class="detalhe-item">
+        <span class="detalhe-label">Denominação</span>
+        <span class="detalhe-valor">{{ resultado.pocao.nome }}</span>
+      </div>
+      <div class="detalhe-item">
+        <span class="detalhe-label">Potência Total</span>
+        <span class="detalhe-valor texto-ouro">{{ resultado.pocao.potenciaTotal }}</span>
+      </div>
+      <div class="detalhe-item">
+        <span class="detalhe-label">Estabilidade</span>
+        <span
+          class="selo"
+          [class.selo-estavel]="resultado.pocao.estabilidade === 'Estável'"
+          [class.selo-instavel]="resultado.pocao.estabilidade === 'Instável'"
+        >
+          {{ resultado.pocao.estabilidade }}
+        </span>
+      </div>
+      <div class="detalhe-item" *ngIf="resultado.pocao.efeitos?.length">
+        <span class="detalhe-label">Efeito Dominante</span>
+        <span class="detalhe-valor">
+          {{ resultado.pocao.efeitos?.[0]?.ehDominante ? resultado.pocao.efeitos?.[0]?.nome : '' }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+</div>

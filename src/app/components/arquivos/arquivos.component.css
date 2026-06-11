@@ -1,0 +1,4 @@
+.barra-busca { display: flex; gap: 12px; align-items: flex-end; }
+.vazio { text-align: center; padding: 48px; color: var(--tinta-desbotada); font-style: italic; }
+.link-pocao { color: var(--bordo-escuro); text-decoration: none; font-style: italic; }
+.link-pocao:hover { color: var(--bordo); text-decoration: underline; }

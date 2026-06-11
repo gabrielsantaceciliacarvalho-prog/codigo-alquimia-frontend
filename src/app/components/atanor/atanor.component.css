@@ -1,0 +1,209 @@
+.atanor-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.coluna-titulo {
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.08em;
+  color: var(--bordo-escuro);
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+/* Ingredientes disponíveis */
+.ing-simbolo {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  color: var(--tinta-desbotada);
+  margin-right: 8px;
+  background: rgba(201,168,76,0.15);
+  padding: 2px 5px;
+  border: 1px solid rgba(201,168,76,0.3);
+}
+
+.ing-nome {
+  font-size: 0.95rem;
+}
+
+.ing-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ing-pot {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  color: var(--tinta-desbotada);
+}
+
+.raridade-tag {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem;
+  padding: 1px 6px;
+  letter-spacing: 0.05em;
+}
+
+.raridade-comum    { background: #4a4a4a; color: #ddd; }
+.raridade-incomum  { background: var(--verde-erva); color: #d0f0d0; }
+.raridade-raro     { background: #1a3a6e; color: #aaccff; }
+.raridade-epico    { background: #4a1a6e; color: #ddaaff; }
+.raridade-lendario { background: #6e4a00; color: #ffd080; }
+
+.bloqueado { opacity: 0.4; cursor: not-allowed !important; }
+
+/* Caldeirão visual */
+.coluna-caldeirao {
+  display: flex;
+  flex-direction: column;
+}
+
+.caldeirao-visual {
+  text-align: center;
+  position: relative;
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.caldeirao-icone {
+  font-size: 4rem;
+  color: var(--tinta-suave);
+  line-height: 1;
+  filter: drop-shadow(0 4px 8px rgba(44,26,14,0.5));
+}
+
+.caldeirao-vapor {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+}
+
+.caldeirao-vapor span {
+  display: block;
+  width: 4px;
+  height: 20px;
+  background: linear-gradient(to top, rgba(201,168,76,0.6), transparent);
+  border-radius: 2px;
+  animation: vapor 2s infinite ease-in-out;
+}
+
+.caldeirao-vapor span:nth-child(2) { animation-delay: 0.3s; }
+.caldeirao-vapor span:nth-child(3) { animation-delay: 0.6s; }
+
+@keyframes vapor {
+  0%, 100% { transform: scaleY(1) translateY(0); opacity: 0.6; }
+  50%       { transform: scaleY(1.4) translateY(-6px); opacity: 0.2; }
+}
+
+.contador-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  color: var(--ouro-escuro);
+  text-align: center;
+  letter-spacing: 0.08em;
+  margin-bottom: 8px;
+}
+
+.caldeirao-lista {
+  border: 1px solid var(--pergaminho-sombra);
+  background: rgba(255,255,255,0.2);
+  min-height: 120px;
+  padding: 8px;
+}
+
+.caldeirao-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 6px 10px;
+  border-bottom: 1px dashed var(--pergaminho-sombra);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.caldeirao-item:hover { background: rgba(107,39,55,0.1); }
+.caldeirao-item:last-child { border-bottom: none; }
+
+.remover-x {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  color: var(--bordo);
+  opacity: 0.6;
+}
+
+.caldeirao-vazio {
+  font-style: italic;
+  color: var(--tinta-desbotada);
+  font-size: 0.9rem;
+  padding: 16px;
+  text-align: center;
+}
+
+/* Guia */
+.coluna-guia {
+  font-size: 0.9rem;
+}
+
+.guia-texto p {
+  color: var(--tinta-suave);
+  font-size: 0.9rem;
+}
+
+.guia-raridades {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 6px;
+}
+
+.guia-raridades div {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.85rem;
+  color: var(--tinta-suave);
+}
+
+/* Resultado */
+.resultado-mensagem {
+  font-size: 1rem;
+  color: var(--tinta);
+  margin: 8px 0 12px;
+  font-style: italic;
+}
+
+.resultado-detalhes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.detalhe-item {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.detalhe-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--tinta-desbotada);
+}
+
+.detalhe-valor {
+  font-size: 1rem;
+  color: var(--tinta);
+}

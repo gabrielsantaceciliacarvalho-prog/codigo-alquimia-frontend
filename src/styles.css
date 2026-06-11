@@ -1,0 +1,400 @@
+/* ============================================================
+   CÓDIGO DE ALQUIMIA — Tema Medieval / Grimório
+   Fontes: Cinzel (títulos), EB Garamond (corpo)
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;0,500;1,400&display=swap');
+
+/* ── Variáveis de cor ────────────────────────────────────────── */
+:root {
+  --pergaminho:    #f4e4bc;
+  --pergaminho-escuro: #e8d49e;
+  --pergaminho-sombra: #d4b896;
+  --tinta:         #2c1a0e;
+  --tinta-suave:   #4a3728;
+  --tinta-desbotada: #7a6555;
+  --ouro:          #c9a84c;
+  --ouro-escuro:   #9e7c2e;
+  --bordo:         #6b2737;
+  --bordo-escuro:  #4a1926;
+  --verde-erva:    #3d5a3e;
+  --cinza-pedra:   #8c8075;
+  --sombra:        rgba(44, 26, 14, 0.25);
+}
+
+/* ── Reset e base ─────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: 'EB Garamond', Georgia, serif;
+  font-size: 16px;
+  background-color: #1c1008;
+  background-image:
+    repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent 2px,
+      rgba(0,0,0,0.03) 2px,
+      rgba(0,0,0,0.03) 4px
+    );
+  color: var(--tinta);
+  min-height: 100vh;
+}
+
+/* ── Layout principal ─────────────────────────────────────────── */
+.grimoire-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.grimoire-content {
+  flex: 1;
+  padding: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+}
+
+/* ── Página de pergaminho ─────────────────────────────────────── */
+.pagina {
+  background-color: var(--pergaminho);
+  background-image:
+    radial-gradient(ellipse at 20% 10%, rgba(255,240,200,0.6) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 90%, rgba(180,140,80,0.3) 0%, transparent 50%),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  border: 2px solid var(--ouro-escuro);
+  border-radius: 2px;
+  box-shadow:
+    0 4px 20px var(--sombra),
+    inset 0 0 60px rgba(180, 140, 80, 0.15);
+  padding: 32px;
+  position: relative;
+}
+
+/* Borda ornamental interna */
+.pagina::before {
+  content: '';
+  position: absolute;
+  inset: 8px;
+  border: 1px solid rgba(201, 168, 76, 0.4);
+  pointer-events: none;
+}
+
+/* ── Tipografia ───────────────────────────────────────────────── */
+h1, h2, h3, h4 {
+  font-family: 'Cinzel', 'Times New Roman', serif;
+  color: var(--bordo-escuro);
+  letter-spacing: 0.04em;
+}
+
+h1 { font-size: 2rem;   font-weight: 700; }
+h2 { font-size: 1.5rem; font-weight: 600; }
+h3 { font-size: 1.2rem; font-weight: 600; }
+
+p, li, td, th, label, span {
+  font-family: 'EB Garamond', Georgia, serif;
+  line-height: 1.7;
+}
+
+/* ── Divisores ornamentais ────────────────────────────────────── */
+.ornamento {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+  color: var(--ouro-escuro);
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+
+.ornamento::before,
+.ornamento::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--ouro), transparent);
+}
+
+/* Linha simples dourada */
+.linha-ouro {
+  border: none;
+  border-top: 1px solid var(--ouro-escuro);
+  opacity: 0.5;
+  margin: 16px 0;
+}
+
+/* ── Botões ───────────────────────────────────────────────────── */
+.btn {
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+  padding: 8px 20px;
+  border-radius: 1px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
+}
+
+.btn-primario {
+  background-color: var(--bordo);
+  color: var(--pergaminho);
+  border-color: var(--bordo-escuro);
+  box-shadow: 0 2px 6px rgba(107, 39, 55, 0.4);
+}
+
+.btn-primario:hover {
+  background-color: var(--bordo-escuro);
+  box-shadow: 0 3px 10px rgba(107, 39, 55, 0.6);
+  transform: translateY(-1px);
+}
+
+.btn-secundario {
+  background-color: transparent;
+  color: var(--tinta-suave);
+  border-color: var(--ouro-escuro);
+}
+
+.btn-secundario:hover {
+  background-color: var(--pergaminho-escuro);
+  color: var(--tinta);
+}
+
+.btn-ouro {
+  background-color: var(--ouro-escuro);
+  color: var(--pergaminho);
+  border-color: var(--ouro);
+}
+
+.btn-ouro:hover {
+  background-color: var(--ouro);
+  color: var(--tinta);
+}
+
+.btn-perigo {
+  background-color: transparent;
+  color: var(--bordo);
+  border-color: var(--bordo);
+}
+
+.btn-perigo:hover {
+  background-color: var(--bordo);
+  color: var(--pergaminho);
+}
+
+.btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ── Campos de formulário ─────────────────────────────────────── */
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-bottom: 14px;
+}
+
+.campo label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  color: var(--tinta-suave);
+  text-transform: uppercase;
+}
+
+.entrada {
+  font-family: 'EB Garamond', serif;
+  font-size: 1rem;
+  background-color: rgba(255, 255, 255, 0.35);
+  border: 1px solid var(--pergaminho-sombra);
+  border-bottom: 2px solid var(--ouro-escuro);
+  padding: 8px 10px;
+  color: var(--tinta);
+  outline: none;
+  transition: border-color 0.2s, background-color 0.2s;
+  width: 100%;
+}
+
+.entrada:focus {
+  border-color: var(--ouro);
+  background-color: rgba(255, 255, 255, 0.55);
+}
+
+select.entrada {
+  appearance: none;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M6 8L0 0h12z' fill='%239e7c2e'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  padding-right: 32px;
+  cursor: pointer;
+}
+
+textarea.entrada {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* ── Tabela de manuscrito ─────────────────────────────────────── */
+.tabela-manuscrito {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.95rem;
+}
+
+.tabela-manuscrito thead tr {
+  background-color: var(--bordo-escuro);
+  color: var(--pergaminho);
+}
+
+.tabela-manuscrito thead th {
+  font-family: 'Cinzel', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 600;
+}
+
+.tabela-manuscrito tbody tr {
+  border-bottom: 1px solid var(--pergaminho-sombra);
+  transition: background-color 0.15s;
+}
+
+.tabela-manuscrito tbody tr:nth-child(even) {
+  background-color: rgba(180, 140, 80, 0.08);
+}
+
+.tabela-manuscrito tbody tr:hover {
+  background-color: rgba(201, 168, 76, 0.18);
+  cursor: pointer;
+}
+
+.tabela-manuscrito tbody td {
+  padding: 9px 14px;
+  color: var(--tinta-suave);
+}
+
+.tabela-manuscrito tbody td:first-child {
+  color: var(--tinta);
+  font-weight: 500;
+}
+
+/* Linha selecionada */
+.tabela-manuscrito tbody tr.selecionada {
+  background-color: rgba(107, 39, 55, 0.12);
+  outline: 1px solid var(--bordo);
+}
+
+/* ── Selos / badges ───────────────────────────────────────────── */
+.selo {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.06em;
+  padding: 2px 8px;
+  border-radius: 1px;
+  text-transform: uppercase;
+}
+
+.selo-perigo-extremo  { background: #3d0a0a; color: #ffaaaa; }
+.selo-perigo-alto     { background: #5a2010; color: #ffccaa; }
+.selo-perigo-medio    { background: #5a4010; color: #ffeebb; }
+.selo-perigo-baixo    { background: var(--verde-erva); color: #ccffcc; }
+.selo-perigo-inofensivo { background: #2a3d2b; color: #aaffaa; }
+.selo-estavel         { background: var(--verde-erva); color: #d4f0d4; }
+.selo-instavel        { background: var(--bordo-escuro); color: #ffcccc; }
+.selo-dominante       { background: var(--ouro-escuro); color: var(--tinta); }
+.selo-secundario      { background: var(--cinza-pedra); color: var(--pergaminho); }
+.selo-ativo           { background: var(--verde-erva); color: #d4f0d4; }
+.selo-inativo         { background: var(--cinza-pedra); color: var(--pergaminho); }
+
+/* ── Lista de ingredientes (caldeirão) ────────────────────────── */
+.lista-ingredientes {
+  list-style: none;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 1px solid var(--pergaminho-sombra);
+  background: rgba(255,255,255,0.2);
+}
+
+.lista-ingredientes li {
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--pergaminho-sombra);
+  cursor: pointer;
+  font-size: 0.95rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: background-color 0.15s;
+}
+
+.lista-ingredientes li:hover {
+  background-color: rgba(201, 168, 76, 0.2);
+}
+
+.lista-ingredientes li.selecionado {
+  background-color: rgba(107, 39, 55, 0.15);
+  color: var(--bordo-escuro);
+  font-style: italic;
+}
+
+/* ── Caixa de resultado ───────────────────────────────────────── */
+.resultado-box {
+  border: 1px solid var(--ouro);
+  background: rgba(201, 168, 76, 0.08);
+  padding: 20px 24px;
+  margin-top: 16px;
+  position: relative;
+}
+
+.resultado-box::before {
+  content: '';
+  position: absolute;
+  inset: 4px;
+  border: 1px solid rgba(201, 168, 76, 0.3);
+  pointer-events: none;
+}
+
+.resultado-box.sucesso  { border-color: var(--verde-erva); }
+.resultado-box.duplicata { border-color: var(--ouro); }
+.resultado-box.erro     { border-color: var(--bordo); }
+
+/* ── Scrollbar medieval ───────────────────────────────────────── */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: var(--pergaminho-escuro); }
+::-webkit-scrollbar-thumb {
+  background: var(--ouro-escuro);
+  border-radius: 0;
+}
+::-webkit-scrollbar-thumb:hover { background: var(--ouro); }
+
+/* ── Utilitários ──────────────────────────────────────────────── */
+.texto-ouro    { color: var(--ouro-escuro); }
+.texto-bordo   { color: var(--bordo); }
+.texto-suave   { color: var(--tinta-desbotada); font-style: italic; }
+.texto-titulo  { font-family: 'Cinzel', serif; }
+.grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.flex   { display: flex; }
+.flex-entre { display: flex; justify-content: space-between; align-items: center; }
+.gap-8  { gap: 8px; }
+.gap-12 { gap: 12px; }
+.mt-8   { margin-top: 8px; }
+.mt-16  { margin-top: 16px; }
+.mt-24  { margin-top: 24px; }
+.mb-16  { margin-bottom: 16px; }
+.w-full { width: 100%; }
+.italic { font-style: italic; }

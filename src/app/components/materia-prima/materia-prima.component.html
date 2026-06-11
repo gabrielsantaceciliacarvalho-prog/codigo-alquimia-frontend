@@ -1,0 +1,161 @@
+<div class="pagina">
+
+  <div class="flex-entre mb-16">
+    <h2>Materia Prima</h2>
+    <p class="texto-suave">Cadastro e gestão dos ingredientes alquímicos</p>
+  </div>
+
+  <div class="mp-grid">
+
+    <!-- Coluna esquerda: tabela -->
+    <div class="coluna-tabela">
+      <div class="ornamento">Ingredientes Registrados</div>
+
+      <!-- Filtros -->
+      <div class="filtros">
+        <div class="campo" style="flex:1; margin:0;">
+          <label>Filtrar por Nome</label>
+          <input class="entrada" type="text" [(ngModel)]="filtro"
+                 placeholder="Digite para filtrar..." (keyup.enter)="carregar()"/>
+        </div>
+        <div class="campo" style="margin:0;">
+          <label>&nbsp;</label>
+          <button class="btn btn-secundario" (click)="carregar()">Filtrar</button>
+        </div>
+        <div class="campo" style="margin:0; justify-content:flex-end;">
+          <label>&nbsp;</label>
+          <label class="label-checkbox">
+            <input type="checkbox" [(ngModel)]="apenasAtivos" (change)="carregar()"/>
+            Apenas ativos
+          </label>
+        </div>
+      </div>
+
+      <div *ngIf="carregando" class="texto-suave" style="text-align:center; padding:24px;">
+        Consultando os registros...
+      </div>
+
+      <table class="tabela-manuscrito" *ngIf="!carregando">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Elemento</th>
+            <th>Raridade</th>
+            <th>Potência</th>
+            <th>Efeito Base</th>
+            <th>Situação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let ing of ingredientes"
+              (click)="selecionar(ing)"
+              [class.selecionada]="selecionado?.id === ing.id">
+            <td>{{ ing.nome }}</td>
+            <td>
+              <span class="simbolo-el">{{ ing.elemento.simbolo }}</span>
+              {{ ing.elemento.nome }}
+            </td>
+            <td>{{ ing.raridade.nome }}</td>
+            <td class="texto-ouro">{{ ing.potencia }}</td>
+            <td>{{ ing.efeitoBase }}</td>
+            <td>
+              <span class="selo"
+                [class.selo-ativo]="ing.ativo"
+                [class.selo-inativo]="!ing.ativo">
+                {{ ing.ativo ? 'Ativo' : 'Inativo' }}
+              </span>
+            </td>
+          </tr>
+          <tr *ngIf="ingredientes.length === 0">
+            <td colspan="6" style="text-align:center; font-style:italic; color:var(--tinta-desbotada); padding:24px;">
+              Nenhum ingrediente encontrado.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="rodape-tabela">
+        <span class="texto-suave">{{ ingredientes.length }} ingrediente(s)</span>
+      </div>
+    </div>
+
+    <!-- Coluna direita: formulário -->
+    <div class="coluna-form">
+      <div class="ornamento">
+        {{ modoEdicao ? 'Editar Registro' : 'Novo Ingrediente' }}
+      </div>
+
+      <div class="campo">
+        <label>Nome *</label>
+        <input class="entrada" type="text" [(ngModel)]="form.nome"
+               placeholder="Denominação do ingrediente"/>
+      </div>
+
+      <div class="campo">
+        <label>Elemento *</label>
+        <select class="entrada" [(ngModel)]="form.idElemento">
+          <option value="0" disabled>Selecione o elemento...</option>
+          <option *ngFor="let el of elementos" [value]="el.id">
+            {{ el.simbolo }} — {{ el.nome }}
+          </option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label>Raridade *</label>
+        <select class="entrada" [(ngModel)]="form.idRaridade">
+          <option value="0" disabled>Selecione a raridade...</option>
+          <option *ngFor="let r of raridades" [value]="r.id">
+            {{ r.nome }} (×{{ r.multiplicadorPotencia }})
+          </option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label>Potência (1–100) *</label>
+        <input class="entrada" type="number" [(ngModel)]="form.potencia"
+               min="1" max="100"/>
+        <div class="barra-potencia">
+          <div class="barra-preenchida" [style.width.%]="form.potencia ?? 0"></div>
+        </div>
+      </div>
+
+      <div class="campo">
+        <label>Efeito Base *</label>
+        <input class="entrada" type="text" [(ngModel)]="form.efeitoBase"
+               placeholder="Ex: Cura, Força, Veneno..."/>
+      </div>
+
+      <div class="campo">
+        <label>Descrição</label>
+        <textarea class="entrada" [(ngModel)]="form.descricao"
+                  placeholder="Notas sobre o ingrediente..." rows="3"></textarea>
+      </div>
+
+      <div class="linha-ouro"></div>
+
+      <div class="mensagem-form"
+           *ngIf="mensagem"
+           [class.mensagem-erro]="mensagemErro"
+           [class.mensagem-ok]="!mensagemErro">
+        {{ mensagem }}
+      </div>
+
+      <div class="acoes-form">
+        <button class="btn btn-secundario" (click)="novo()">
+          Limpar
+        </button>
+        <button class="btn btn-primario" (click)="salvar()">
+          {{ modoEdicao ? 'Atualizar Registro' : 'Registrar Ingrediente' }}
+        </button>
+      </div>
+
+      <button class="btn btn-perigo w-full mt-8"
+              *ngIf="modoEdicao && selecionado?.ativo"
+              (click)="desativar()">
+        Desativar Ingrediente
+      </button>
+    </div>
+
+  </div>
+</div>

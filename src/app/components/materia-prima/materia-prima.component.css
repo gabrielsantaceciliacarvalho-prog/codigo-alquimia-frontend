@@ -1,0 +1,96 @@
+.mp-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 28px;
+  margin-top: 8px;
+  align-items: start;
+}
+
+/* Tabela */
+.filtros {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  margin-bottom: 12px;
+}
+
+.simbolo-el {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem;
+  background: rgba(201,168,76,0.15);
+  border: 1px solid rgba(201,168,76,0.3);
+  padding: 1px 4px;
+  margin-right: 4px;
+}
+
+.rodape-tabela {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px solid var(--pergaminho-sombra);
+}
+
+/* Formulário */
+.coluna-form {
+  background: rgba(180,140,80,0.06);
+  border: 1px solid var(--pergaminho-sombra);
+  padding: 20px;
+}
+
+.barra-potencia {
+  height: 4px;
+  background: var(--pergaminho-sombra);
+  margin-top: 4px;
+  border-radius: 0;
+  overflow: hidden;
+}
+
+.barra-preenchida {
+  height: 100%;
+  background: linear-gradient(to right, var(--verde-erva), var(--ouro-escuro), var(--bordo));
+  transition: width 0.3s ease;
+}
+
+.label-checkbox {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'EB Garamond', serif;
+  font-size: 0.9rem;
+  color: var(--tinta-suave);
+  cursor: pointer;
+  white-space: nowrap;
+  padding: 8px 0;
+}
+
+.label-checkbox input[type="checkbox"] {
+  accent-color: var(--bordo);
+  width: 14px;
+  height: 14px;
+  cursor: pointer;
+}
+
+.mensagem-form {
+  padding: 8px 12px;
+  font-style: italic;
+  font-size: 0.9rem;
+  margin-bottom: 8px;
+}
+
+.mensagem-ok {
+  background: rgba(61,90,62,0.15);
+  border-left: 3px solid var(--verde-erva);
+  color: var(--verde-erva);
+}
+
+.mensagem-erro {
+  background: rgba(107,39,55,0.12);
+  border-left: 3px solid var(--bordo);
+  color: var(--bordo-escuro);
+}
+
+.acoes-form {
+  display: flex;
+  gap: 10px;
+}
+
+.acoes-form .btn { flex: 1; }

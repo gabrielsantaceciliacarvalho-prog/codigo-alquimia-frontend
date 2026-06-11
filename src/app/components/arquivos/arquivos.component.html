@@ -1,0 +1,63 @@
+<div class="pagina">
+  <div class="flex-entre mb-16">
+    <h2>Consultar os Arquivos</h2>
+    <p class="texto-suave">Pesquise nas fórmulas catalogadas</p>
+  </div>
+
+  <div class="ornamento">Busca nos Registros</div>
+
+  <div class="barra-busca">
+    <div class="campo" style="flex:1; margin:0;">
+      <label>Termo de Busca</label>
+      <input class="entrada" type="text" [(ngModel)]="termo"
+             placeholder="Nome da poção ou efeito..."
+             (keyup.enter)="buscar()"/>
+    </div>
+    <button class="btn btn-primario" (click)="buscar()" [disabled]="carregando">
+      {{ carregando ? 'Consultando...' : 'Consultar' }}
+    </button>
+    <button class="btn btn-secundario" (click)="limpar()">Limpar</button>
+  </div>
+
+  <div *ngIf="buscou" class="mt-16">
+    <p class="texto-suave" style="margin-bottom:12px;">
+      {{ pocoes.length }} resultado(s) encontrado(s)
+      <span *ngIf="termo"> para "<em>{{ termo }}</em>"</span>
+    </p>
+
+    <div *ngIf="pocoes.length === 0" class="vazio">
+      Nenhuma fórmula encontrada nos arquivos.
+    </div>
+
+    <table class="tabela-manuscrito" *ngIf="pocoes.length > 0">
+      <thead>
+        <tr>
+          <th>Denominação</th>
+          <th>Potência</th>
+          <th>Estabilidade</th>
+          <th>Perigo</th>
+          <th>Efeito Dominante</th>
+          <th>Data</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let p of pocoes">
+          <td>
+            <a [routerLink]="['/pergaminho', p.id]" class="link-pocao">{{ p.nome }}</a>
+          </td>
+          <td class="texto-ouro">{{ p.potenciaTotal }}</td>
+          <td>
+            <span class="selo"
+              [class.selo-estavel]="p.estabilidade === 'Estável'"
+              [class.selo-instavel]="p.estabilidade === 'Instável'">
+              {{ p.estabilidade }}
+            </span>
+          </td>
+          <td><span class="selo" [class]="classePerigo(p.nivelPerigo ?? '')">{{ p.nivelPerigo }}</span></td>
+          <td>{{ p.efeitoDominante ?? '—' }}</td>
+          <td class="texto-suave" style="font-size:0.85rem;">{{ p.dataCriacao }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
