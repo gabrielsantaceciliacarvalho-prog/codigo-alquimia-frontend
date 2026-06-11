@@ -5,7 +5,9 @@ import { Ingrediente, Elemento, Raridade } from '../models/ingrediente.model';
 
 @Injectable({ providedIn: 'root' })
 export class IngredienteService {
-  private api = 'http://localhost:8080/api/ingredientes';
+  private api = 'https://resource-disregard-broiling.ngrok-free.dev'
+  
+  //'http://localhost:8080/api/ingredientes';
 
   constructor(private http: HttpClient) {}
 

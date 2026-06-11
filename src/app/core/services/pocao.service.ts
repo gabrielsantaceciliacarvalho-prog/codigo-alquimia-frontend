@@ -5,7 +5,9 @@ import { Pocao, CriarPocaoRequest, ResultadoCriacao } from '../models/pocao.mode
 
 @Injectable({ providedIn: 'root' })
 export class PocaoService {
-  private api = 'http://localhost:8080/api/pocoes';
+  private api = 'https://resource-disregard-broiling.ngrok-free.dev'
+  
+  //'http://localhost:8080/api/pocoes';
 
   constructor(private http: HttpClient) {}
 
